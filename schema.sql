@@ -1,0 +1,16 @@
+CREATE TABLE Users (
+    ID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
+    Username VARCHAR(50),
+    Password VARCHAR(255)
+);
+
+CREATE TABLE Contacts (
+    ID CHAR(36) DEFAULT (UUID()) PRIMARY KEY, 
+    UserID CHAR(36),
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Phone VARCHAR(50),
+    Email VARCHAR(50),
+    DateCreated DATETIME,
+    FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
+);
