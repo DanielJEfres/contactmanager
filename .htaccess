@@ -1,0 +1,2 @@
+# Block direct user access to .git
+RedirectMatch 404 /\.git
