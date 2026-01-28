@@ -46,8 +46,27 @@ WHERE
     Username = "charlie";
 
 /*
- * Add Contact to user
+ * Add contact to user.
  */
+INSERT INTO
+    Contacts (
+        UserID,
+        FirstName,
+        LastName,
+        Phone,
+        Email,
+        DateCreated
+    )
+VALUES
+    (
+        "cd336184-fbc1-11f0-bb4f-0a0027000002",
+        "john",
+        "doe",
+        "475-346-7535",
+        "thisisfake@gmk.com",
+        NOW ()
+    );
+
 /*
  * Create User
  */
