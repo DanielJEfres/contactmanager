@@ -1,18 +1,19 @@
 USE ContactManager
+CREATE TABLE
+    Users (
+        ID CHAR(36) DEFAULT (UUID ()) PRIMARY KEY,
+        Username VARCHAR(50) NOT NULL,
+        Password VARCHAR(255) NOT NULL
+    );
 
-CREATE TABLE Users (
-    ID CHAR(36) DEFAULT (UUID()) PRIMARY KEY,
-    Username VARCHAR(50) NOT NULL,
-    Password VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE Contacts (
-    ID CHAR(36) DEFAULT (UUID()) PRIMARY KEY, 
-    UserID CHAR(36),
-    FirstName VARCHAR(50) NOT NULL DEFAULT '',
-    LastName VARCHAR(50) NOT NULL DEFAULT '',
-    Phone VARCHAR(50) NOT NULL DEFAULT '',
-    Email VARCHAR(50) NOT NULL DEFAULT '',
-    DateCreated DATETIME,
-    FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASCADE
-);
+CREATE TABLE
+    Contacts (
+        ID CHAR(36) DEFAULT (UUID ()) PRIMARY KEY,
+        UserID CHAR(36),
+        FirstName VARCHAR(50) NOT NULL DEFAULT '',
+        LastName VARCHAR(50) NOT NULL DEFAULT '',
+        Phone VARCHAR(50) NOT NULL DEFAULT '',
+        Email VARCHAR(50) NOT NULL DEFAULT '',
+        DateCreated DATETIME,
+        FOREIGN KEY (UserID) REFERENCES Users (ID) ON DELETE CASCADE
+    );
