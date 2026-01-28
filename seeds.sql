@@ -1,3 +1,8 @@
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE Contacts;
+TRUNCATE TABLE Users;
+SET FOREIGN_KEY_CHECKS = 1;
+
 INSERT INTO Users (ID, Username, Password)
 VALUES 
     ('cd336184-fbc1-11f0-bb4f-0a0027000002', "charlie", "hashedPass1"),
