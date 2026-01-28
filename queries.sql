@@ -73,6 +73,16 @@ VALUES
 /*
  * Update Contact information
  */
+UPDATE Contacts
+SET
+    FirstName = "someFirstName",
+    LastName = "someLastName",
+    Phone = "somePhoneNumber",
+    Email = "someEmail"
+WHERE
+    ID = "1098607a-fbc4-11f0-bb4f-0a0027000002"
+    AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
+
 /*
  * Delete contact information
  */

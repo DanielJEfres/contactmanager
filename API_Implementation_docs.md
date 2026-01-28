@@ -91,3 +91,39 @@ VALUES
 
 **:email (String)**
 - Description: Email address. Bind NULL if empty.
+
+## 4. Update Contact
+
+### Purpose
+Updates an existing contact's details.
+**Note:** This is an "Overwrite" operation. The API must send new values for changed fields and *existing* values for unchanged fields. In other words, don't bind NULL to a field unless you are clearing it.
+
+### Query
+```sql
+UPDATE Contacts
+SET FirstName = :firstName,
+    LastName = :lastName,
+    Phone = :phone,
+    Email = :email
+WHERE ID = :cid 
+  AND UserID = :uid;
+```
+
+### Implementation Notes
+**:firstName (String)**
+- Description: The new (or existing) First Name. Bind NULL if clearing the field.
+
+**:lastName (String)**
+- Description: The new (or existing) Last Name. Bind NULL if clearing the field.
+
+**:phone (String)**
+- Description: The new (or existing) Phone. Bind NULL if clearing the field.
+
+**:email (String)**
+- Description: The new (or existing) Email. Bind NULL if clearing the field.
+
+**:cid (Integer)**
+- Description: The unique ID of the contact to update.
+
+**:uid (String)**
+- Description: The UUID of the logged-in user. Required for security.
