@@ -86,6 +86,14 @@ WHERE
 /*
  * Delete contact information
  */
+DELETE FROM Contacts
+WHERE
+    ID = "1098607a-fbc4-11f0-bb4f-0a0027000002"
+    AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
+
 /*
  * Delete User
  */
+DELETE FROM Users
+WHERE
+    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";

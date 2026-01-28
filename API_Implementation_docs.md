@@ -127,3 +127,38 @@ WHERE ID = :cid
 
 **:uid (String)**
 - Description: The UUID of the logged-in user. Required for security.
+
+## 5. Delete Contact
+
+### Purpose
+Permanently removes a specific contact record.
+
+### Query
+```sql
+DELETE FROM Contacts
+WHERE ID = :id 
+  AND UserID = :uid;
+```
+
+### Implementation notes
+**:id (Integer)**
+- Description: The unique ID of the contact to delete.
+
+**:uid (String)**
+- Description: The UUID of the logged-in user. Required for security.
+
+## 6. Delete User
+
+### Purpose
+Permanently deletes a user account.
+**Note**: Because `ON DELETE CASCADE` is enabled in the database schema, running this single query will automatically and instantly delete all contacts associated with this user.
+
+### Query
+```sql
+DELETE FROM Users
+WHERE ID = :uid;
+```
+
+### Implementation Notes
+**:uid (String)**
+- Description: The UUID of the user to delete.
