@@ -1,0 +1,50 @@
+# Database Queries (API Contract)
+
+This document defines the standard SQL queries required for the Contacts API. Please adhere to the binding instructions to ensure security and performance.
+
+## 1. Search Contacts (Smart Search)
+
+### Purpose
+Retrieves paginated contact records for a specific user. It filters by a single "smart" search term that checks the Full Name (First + Last), Phone, or Email.
+
+Select a contact record from Contacts based on UserID, and any of these other columns: Firstname, LastName, Phone, and Email
+This query takes 1 search term. The search term can be any of the following:
+   - "firstName" + " " + "lastName"
+   - Phone number
+   - Email address
+
+### The Query
+```sql
+SELECT ID, FirstName, LastName, Phone, Email, DateCreated
+FROM Contacts 
+WHERE UserID = :uid
+    AND (
+        CONCAT_WS(' ', FirstName, LastName) LIKE :search 
+        OR Phone LIKE :search 
+        OR Email LIKE :search 
+    )
+ORDER BY FirstName ASC
+LIMIT :limit OFFSET :offset;
+```
+
+### Parameters & Binding
+
+**:uid (String)**
+- Description: The UUID of the logged-in user.
+- Binding: Bind as standard string.
+
+**:search (String)**
+- Description: The user's input (once cleaned).
+- Binding: Wrap in wildcards (e.g., "%John Doe%") to get substring matches. If you need to get every record, use "%%".
+
+**A note on pagination**
+- If you don't want to paginate the result of this query, simply remove the LIMIT ... OFFSET ... line from the SQL string before preparing the statement.
+
+**:limit (Integer)**
+- Description: Records to return per page (e.g., 10).
+- Binding: MUST bind as PDO::PARAM_INT.
+
+**:offset (Integer)**
+- Description: Number of pages of records to skip
+- Binding: MUST bind as PDO::PARAM_INT.
+- Formula: (pageNum - 1) * limit.
