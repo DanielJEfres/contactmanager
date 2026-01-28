@@ -21,16 +21,16 @@ FROM
 WHERE
     UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002"
     AND (
-        CONCAT_WS (' ', FirstName, LastName) LIKE "%c%"
-        OR Phone LIKE "%c%"
-        OR Email Like "%c%"
+        CONCAT_WS (' ', FirstName, LastName) LIKE ""
+        OR Phone LIKE "%2%"
+        OR Email Like ""
     )
 ORDER BY
     FirstName ASC
 LIMIT
     10
 OFFSET
-    1;
+    0;
 
 -- TODO: Get feedback from API team on which columns they need.
 /*
@@ -64,7 +64,7 @@ VALUES
         "doe",
         "475-346-7535",
         "thisisfake@gmk.com",
-        NOW ()
+        CURRENT_TIMESTAMP
     );
 
 /*
@@ -80,7 +80,7 @@ SET
     Phone = "somePhoneNumber",
     Email = "someEmail"
 WHERE
-    ID = "1098607a-fbc4-11f0-bb4f-0a0027000002"
+    ID = "f07800ca-fc89-11f0-bb4f-0a0027000002"
     AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
 
 /*
@@ -88,7 +88,7 @@ WHERE
  */
 DELETE FROM Contacts
 WHERE
-    ID = "1098607a-fbc4-11f0-bb4f-0a0027000002"
+    ID = "f07800ca-fc89-11f0-bb4f-0a0027000002"
     AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
 
 /*
@@ -111,5 +111,5 @@ SELECT
 FROM
     Contacts
 WHERE
-    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002"
+    ID = "f07800ca-fc89-11f0-bb4f-0a0027000002"
     AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
