@@ -31,3 +31,32 @@ LIMIT
     10
 OFFSET
     1;
+
+-- TODO: Get feedback from API team on which columns they need.
+/*
+ * Get the ID, Password, and Salt associated with a Username
+ */
+SELECT
+    ID,
+    Password,
+    Salt
+FROM
+    Users
+WHERE
+    Username = "charlie";
+
+/*
+ * Add Contact to user
+ */
+/*
+ * Create User
+ */
+/*
+ * Update Contact information
+ */
+/*
+ * Delete contact information
+ */
+/*
+ * Delete User
+ */
