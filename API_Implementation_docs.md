@@ -106,7 +106,7 @@ SET FirstName = :firstName,
     Phone = :phone,
     Email = :email
 WHERE ID = :cid 
-  AND UserID = :uid;
+    AND UserID = :uid;
 ```
 
 ### Implementation Notes
@@ -136,8 +136,9 @@ Permanently removes a specific contact record.
 ### Query
 ```sql
 DELETE FROM Contacts
-WHERE ID = :id 
-  AND UserID = :uid;
+WHERE 
+    ID = :id 
+    AND UserID = :uid;
 ```
 
 ### Implementation notes
@@ -156,9 +157,38 @@ Permanently deletes a user account.
 ### Query
 ```sql
 DELETE FROM Users
-WHERE ID = :uid;
+WHERE 
+    ID = :uid;
 ```
 
 ### Implementation Notes
 **:uid (String)**
 - Description: The UUID of the user to delete.
+
+## 7. Get Single Contact
+
+### Purpose
+Retrieves the details of a specific contact. 
+
+### Query
+```sql
+SELECT 
+    ID, 
+    FirstName, 
+    LastName, 
+    Phone, 
+    Email, 
+    DateCreated
+FROM 
+    Contacts
+WHERE 
+    ID = :id 
+    AND UserID = :uid;
+```
+
+### Implementation Notes
+**:id (Integer/String)**
+- Description: The unique ID of the contact to retrieve.
+
+**:uid (String)**
+- Description: The UUID of the logged-in user.

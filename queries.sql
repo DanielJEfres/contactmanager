@@ -97,3 +97,19 @@ WHERE
 DELETE FROM Users
 WHERE
     ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
+
+/*
+ * Get Contact by contactID
+ */
+SELECT
+    ID,
+    FirstName,
+    LastName,
+    Phone,
+    Email,
+    DateCreated
+FROM
+    Contacts
+WHERE
+    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002"
+    AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
