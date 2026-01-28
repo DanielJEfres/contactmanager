@@ -77,6 +77,9 @@ VALUES
 ```
 
 ### Implementation Notes
+***Validation Rule:***
+-The API must reject the request with a 400 Bad Request error if the payload contains empty values for all four contact fields (FirstName, LastName, Phone, Email). A contact must contain at least one piece of information.
+
 **:uid (String)**
 - Description: The UUID of the logged-in user.
 
