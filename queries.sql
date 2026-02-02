@@ -1,8 +1,68 @@
+/*
+ * Create User
+ */
+INSERT INTO
+    Users (Username, Password)
+VALUES
+    ("SamH", "Test");
+
+-- TODO: Get feedback from API team on which columns they need.
+/*
+ * Read the ID and Password associated with a Username
+ */
+SELECT
+    ID,
+    Password,
+    Salt
+FROM
+    Users
+WHERE
+    Username = "charlie";
+
+/*
+ * Update User information
+ */
+UPDATE Users
+SET
+    Username = "someUsername",
+    Password = "somePassword",
+WHERE
+    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
+
+/*
+ * Delete User
+ */
+DELETE FROM Users
+WHERE
+    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
+
+/*
+ * Create contact record for a User.
+ */
+INSERT INTO
+    Contacts (
+        UserID,
+        FirstName,
+        LastName,
+        Phone,
+        Email,
+        DateCreated
+    )
+VALUES
+    (
+        "cd336184-fbc1-11f0-bb4f-0a0027000002",
+        "john",
+        "doe",
+        "475-346-7535",
+        "thisisfake@gmk.com",
+        CURRENT_TIMESTAMP
+    );
+
 -- TODO: Get feedback from API team on which columns they need.
 -- TODO: Get feedback from API team on which columns they will be looking for matches from. Do I need to match with the Phone, Email, DateCreated?
 /*
- * Select a contact record from Contacts based on UserID, and any of the 
- * other columns (Firstname, and LastName, Phone, Email, DateCreated)
+ * Read a contact record from Contacts based on UserID, and any of the 
+ * other columns (Firstname, LastName, Phone, Email)
  *
  * This query takes 1 search term. The search term can be any of the following:
  *    - "firstName" + " " + "lastName"
@@ -32,58 +92,21 @@ LIMIT
 OFFSET
     0;
 
--- TODO: Get feedback from API team on which columns they need.
 /*
- * Get the ID, Password, and Salt associated with a Username
+ * Read Contact by contact ID
  */
 SELECT
     ID,
-    Password,
-    Salt
+    FirstName,
+    LastName,
+    Phone,
+    Email,
+    DateCreated
 FROM
-    Users
+    Contacts
 WHERE
-    Username = "charlie";
-
-/*
- * Add contact to user.
- */
-INSERT INTO
-    Contacts (
-        UserID,
-        FirstName,
-        LastName,
-        Phone,
-        Email,
-        DateCreated
-    )
-VALUES
-    (
-        "cd336184-fbc1-11f0-bb4f-0a0027000002",
-        "john",
-        "doe",
-        "475-346-7535",
-        "thisisfake@gmk.com",
-        CURRENT_TIMESTAMP
-    );
-
-/*
- * Create User
- */
-INSERT INTO
-    Users (Username, Password)
-VALUES
-    ("SamH", "Test");
-
-/*
- * Update User information
- */
-UPDATE Users
-SET
-    Username = "someUsername",
-    Password = "somePassword",
-WHERE
-    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
+    ID = "f07800ca-fc89-11f0-bb4f-0a0027000002"
+    AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
 
 /*
  * Update Contact information
@@ -102,29 +125,6 @@ WHERE
  * Delete contact information
  */
 DELETE FROM Contacts
-WHERE
-    ID = "f07800ca-fc89-11f0-bb4f-0a0027000002"
-    AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
-
-/*
- * Delete User
- */
-DELETE FROM Users
-WHERE
-    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
-
-/*
- * Get Contact by contactID
- */
-SELECT
-    ID,
-    FirstName,
-    LastName,
-    Phone,
-    Email,
-    DateCreated
-FROM
-    Contacts
 WHERE
     ID = "f07800ca-fc89-11f0-bb4f-0a0027000002"
     AND UserID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
