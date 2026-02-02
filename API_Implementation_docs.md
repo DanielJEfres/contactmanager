@@ -41,8 +41,7 @@ Read the ID and Password given a Username
 ```sql
 SELECT
     ID,
-    Password,
-    Salt
+    Password
 FROM
     Users
 WHERE
@@ -60,7 +59,7 @@ WHERE
 ## 3. Update User Record
 
 ### Purpose
-Updates a user's login credentials (Username, Password, and Salt).
+Updates a user's login credentials (Username, and Password).
 
 ### Query
 ```sql
@@ -83,10 +82,6 @@ WHERE
 
 **:password (String)**
 - Description: The Hashed password string. Never bind plain text here.
-
-**:salt (String)**
-- Description: The random salt string used for hashing.
-- Note: The Users table does not have a column for storing a salt. If using PHP standard password_hash(), this is unnecessary.
 
 **:uid (String)**
 - Description: The UUID of the user to update.

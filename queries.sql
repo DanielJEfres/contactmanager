@@ -12,8 +12,7 @@ VALUES
  */
 SELECT
     ID,
-    Password,
-    Salt
+    Password
 FROM
     Users
 WHERE
