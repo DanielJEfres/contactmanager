@@ -229,3 +229,31 @@ WHERE
 
 **:uid (String)**
 - Description: The UUID of the user to update.
+
+
+## 9. Register User (Create Account)
+
+### Purpose
+Creates a new user account.
+
+### Query
+```sql
+INSERT INTO 
+    Users (Username, Password)
+VALUES 
+    (:username, :password);
+```
+
+### Implementation Notes
+
+**Duplicate Check:** 
+- If this Username already exists, the database will throw a Duplicate Entry Error (Error 1062). The API should catch this specific error code and return a friendly "Username already taken" message to the user.
+
+**Security Warning:** 
+- Never insert a plain-text password here. The API must hash it (e.g., password_hash()) before sending it to the database.
+
+**:username (String)**
+- Description: The desired username.
+
+**:password (String)**
+- Description: The Hashed password.

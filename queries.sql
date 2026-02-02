@@ -68,6 +68,14 @@ VALUES
     );
 
 /*
+ * Create User
+ */
+INSERT INTO
+    Users (Username, Password)
+VALUES
+    ("SamH", "Test");
+
+/*
  * Update User information
  */
 UPDATE Users
