@@ -24,7 +24,7 @@ WHERE
 UPDATE Users
 SET
     Username = "someUsername",
-    Password = "somePassword",
+    Password = "somePassword"
 WHERE
     ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
 
