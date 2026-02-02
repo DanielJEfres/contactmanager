@@ -68,8 +68,15 @@ VALUES
     );
 
 /*
- * Create User
+ * Update User information
  */
+UPDATE Users
+SET
+    Username = "someUsername",
+    Password = "somePassword",
+WHERE
+    ID = "cd336184-fbc1-11f0-bb4f-0a0027000002";
+
 /*
  * Update Contact information
  */

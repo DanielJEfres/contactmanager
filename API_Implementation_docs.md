@@ -195,3 +195,37 @@ WHERE
 
 **:uid (String)**
 - Description: The UUID of the logged-in user.
+
+## 8. Update User (Profile/Credentials)
+
+### Purpose
+Updates a user's login credentials (Username, Password, and Salt).
+**Note:** This is an "Overwrite" operation. To change just the Username, the API must still re-send the existing Password.
+
+### Query
+```sql
+UPDATE Users
+SET 
+    Username = :username,
+    Password = :password,
+    Salt = :salt
+WHERE 
+    ID = :uid;
+```
+
+### Implementation Notes
+**Uniqueness:** 
+- If the new :username is already taken by another user, the database will throw a Duplicate Key Error (assuming the UNIQUE constraint is set on the Username column). The API must catch this error and show a nice message ("That username is already taken") to the user.
+
+**:username (String)**
+- Description: The new (or existing) Username.
+
+**:password (String)**
+- Description: The Hashed password string. Never bind plain text here.
+
+**:salt (String)**
+- Description: The random salt string used for hashing.
+- Note: The Users table does not have a column for storing a salt. If using PHP standard password_hash(), this is unnecessary.
+
+**:uid (String)**
+- Description: The UUID of the user to update.
