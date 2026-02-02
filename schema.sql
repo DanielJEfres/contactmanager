@@ -3,8 +3,7 @@ CREATE TABLE
     Users (
         ID CHAR(36) DEFAULT (UUID ()) PRIMARY KEY,
         Username VARCHAR(50) NOT NULL UNIQUE,
-        Password VARCHAR(255) NOT NULL,
-        Salt VARCHAR(255) NOT NULL
+        Password VARCHAR(255) NOT NULL
     ) CHARSET = utf8mb4;
 
 CREATE TABLE
