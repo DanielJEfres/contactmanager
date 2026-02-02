@@ -257,3 +257,30 @@ VALUES
 
 **:password (String)**
 - Description: The Hashed password.
+
+
+## 10. Get User
+
+### Purpose
+Read the ID and Password given a Username
+
+### Query
+```sql
+SELECT
+    ID,
+    Password,
+    Salt
+FROM
+    Users
+WHERE
+    Username = :username;
+```
+
+### Implementation Notes
+
+**No Rows:** 
+- If the query returns no rows, no record with the specified username exists.
+
+**:username (String)**
+- Description: The desired username.
+
