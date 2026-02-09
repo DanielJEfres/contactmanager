@@ -26,7 +26,7 @@ try {
         sendResponse(true, "Contact deleted");
     } else {
         $conn = null;
-        sendResponse(false, "Contact not found or cant delete");
+        sendResponse(false, "Contact not found or can't delete");
     }
     
 } catch (PDOException $e) {

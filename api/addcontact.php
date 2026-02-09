@@ -41,7 +41,7 @@ try {
     $stmt->execute([$userId, $firstName, $lastName, $phone, $email]);
     $conn = null; // forgot to close connection here
     
-    sendResponse(true, "Contact added successfully!");
+    sendResponse(true, "Contact added successfully");
     
 } catch (PDOException $e) {
     sendResponse(false, "Add Contact Error: " . $e->getMessage()); // reminder: remove db error details in final release
