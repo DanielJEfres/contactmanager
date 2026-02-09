@@ -6,16 +6,18 @@ require_once 'utils.php';
 $inData = json_decode(file_get_contents('php://input'), true);
 
 
-$firstName = $inData['firstName'];
-$lastName  = $inData['lastName'];
-$login     = $inData['login'];
-$password  = $inData['password'];
+$username= $inData['username'] ?? null;
+$password  = $inData['password'] ?? null;
+
+if (!$username || !$password) {
+    sendResponse(false, "Missing username or password");
+}
 
 try {
     $conn = getDB();
 
-    $checkStmt = $conn->prepare("SELECT ID FROM Users WHERE Login = ?");
-    $checkStmt->execute([$login]);
+    $checkStmt = $conn->prepare("SELECT ID FROM Users WHERE Username = ?");
+    $checkStmt->execute([$username]);
     
     if ($checkStmt->rowCount() > 0) {
         sendResponse(false, "Username already exists");
@@ -24,12 +26,12 @@ try {
 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $insertStmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES (?, ?, ?, ?)");
-    $insertStmt->execute([$firstName, $lastName, $login, $hashedPassword]);
+    $insertStmt = $conn->prepare("INSERT INTO Users (Username, Password) VALUES (?, ?)");
+    $insertStmt->execute([$username, $hashedPassword]);
 
     sendResponse(true, "User registered successfully");
 
     } catch (PDOException $e) {
-        sendResponse(false, "Registration error: " . $e->getMessage());
+        sendResponse(false, "Registration error: " . $e->getMessage()); // reminder: remove db error details in final release
 }
 ?>
