@@ -4,13 +4,14 @@ require_once 'utils.php';
 
 $inData = json_decode(file_get_contents('php://input'), true);
 
+$contactId = trim($inData['contactId'] ?? '');
 $userId = trim($inData['userId'] ?? '');
 $firstName = trim($inData['firstName'] ?? '');
 $lastName = trim($inData['lastName'] ?? '');
 $phone = trim($inData['phone'] ?? '');
 $email = trim($inData['email'] ?? '');
 
-if (!$userId || !$firstName || !$lastName || !$phone || !$email) {
+if (!$contactId || !$userId || !$firstName || !$lastName || !$phone || !$email) {
     sendResponse(false, "Missing one or more required fields");
     return;
 }
@@ -21,29 +22,33 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 if (!preg_match('/^\+?[0-9]{7,15}$/', $phone)) {
     sendResponse(false, "Invalid phone number format");
     return;
-} 
+}
 
 try {
     $conn = getDB();
 
-    $checkSql = "SELECT COUNT(*) FROM Contacts WHERE UserID = ? AND Email = ?";
+    $checkSql = "SELECT COUNT(*) FROM Contacts WHERE UserID = ? AND Email = ? AND ID != ?";
     $stmt = $conn->prepare($checkSql);
-    $stmt->execute([$userId, $email]);
+    $stmt->execute([$userId, $email, $contactId]);
     if ($stmt->fetchColumn() > 0) {
         sendResponse(false, "A contact with this email already exists for this user");
         return;
     }
     
-    $sql = "INSERT INTO Contacts (UserID, FirstName, LastName, Phone, Email, DateCreated) 
-            VALUES (?, ?, ?, ?, ?, NOW())";
+    $sql = "UPDATE Contacts SET FirstName = ?, LastName = ?, Phone = ?, Email = ? WHERE ID = ? AND UserID = ?";
     
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$userId, $firstName, $lastName, $phone, $email]);
-    $conn = null; // forgot to close connection here
+    $stmt->execute([$firstName, $lastName, $phone, $email, $contactId, $userId]);
     
-    sendResponse(true, "Contact added successfully!");
+    if ($stmt->rowCount() > 0) {
+        $conn = null;
+        sendResponse(true, "Contact updated");
+    } else {
+        $conn = null;
+        sendResponse(false, "Contact not found");
+    }
     
 } catch (PDOException $e) {
-    sendResponse(false, "Add Contact Error: " . $e->getMessage()); // reminder: remove db error details in final release
+    sendResponse(false, "Update Contact Error: " . $e->getMessage()); // reminder: remove db error details in final release
 }
 ?>
