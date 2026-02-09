@@ -11,6 +11,7 @@ $password  = $inData['password'] ?? null;
 
 if (!$username || !$password) {
     sendResponse(false, "Missing username or password");
+    return;
 }
 
 try {

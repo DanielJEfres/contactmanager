@@ -10,6 +10,7 @@ $password = $inData['password'] ?? null;
 
 if (!$username || !$password) {
     sendResponse(false, "Missing username or password");
+    return;
 }
 
 try {
@@ -28,8 +29,10 @@ try {
     if (password_verify($password, $row['Password'])) {
         
         $responseData = [
+            "userId"   => $row['ID'],
             "username" => $username
         ];
+
 
         sendResponse(true, "Login successful", $responseData);
 
