@@ -3,8 +3,13 @@
 require_once 'config.php';
 require_once 'utils.php';
 
+validatePostRequest();
+
 $inData = json_decode(file_get_contents('php://input'), true);
 
+if (json_last_error() !== JSON_ERROR_NONE) {
+    sendResponse(false, "Invalid JSON format");
+}
 
 $username= $inData['username'] ?? null;
 $password  = $inData['password'] ?? null;
@@ -30,9 +35,11 @@ try {
     $insertStmt = $conn->prepare("INSERT INTO Users (Username, Password) VALUES (?, ?)");
     $insertStmt->execute([$username, $hashedPassword]);
 
+    $conn = null;
     sendResponse(true, "User registered successfully");
 
     } catch (PDOException $e) {
-        sendResponse(false, "Registration error: " . $e->getMessage()); // reminder: remove db error details in final release
+        error_log('Registration error: ' . $e->getMessage());
+        sendResponse(false, "Registration failed. Please try again later");
 }
 ?>

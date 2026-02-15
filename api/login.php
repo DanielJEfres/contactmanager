@@ -3,7 +3,13 @@
 require_once 'config.php';
 require_once 'utils.php';
 
+validatePostRequest();
+
 $inData = json_decode(file_get_contents('php://input'), true);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    sendResponse(false, "Invalid JSON format");
+}
 
 $username= $inData['username'] ?? null;
 $password = $inData['password'] ?? null;
@@ -29,10 +35,11 @@ try {
     if (password_verify($password, $row['Password'])) {
         
         $responseData = [
-            "userId"   => $row['ID'],
-            "username" => $username
-        ];
+        $conn = null;
+        sendResponse(true, "Login successful", $responseData);
 
+    } else {
+        $conn = null;
 
         sendResponse(true, "Login successful", $responseData);
 
@@ -41,6 +48,7 @@ try {
     }
 
 } catch (PDOException $e) {
-    sendResponse(false, "Login error: " . $e->getMessage()); // reminder: remove db error details in final release
+    error_log('Login error: ' . $e->getMessage());
+    sendResponse(false, "Login failed. Please try again later");
 }
 ?>

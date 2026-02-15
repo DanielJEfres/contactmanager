@@ -2,7 +2,13 @@
 require_once 'config.php';
 require_once 'utils.php';
 
+validatePostRequest();
+
 $inData = json_decode(file_get_contents('php://input'), true);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    sendResponse(false, "Invalid JSON format");
+}
 
 $contactId = trim($inData['contactId'] ?? '');
 $userId = trim($inData['userId'] ?? '');
@@ -49,6 +55,7 @@ try {
     }
     
 } catch (PDOException $e) {
-    sendResponse(false, "Update Contact Error: " . $e->getMessage()); // reminder: remove db error details in final release
+    error_log('Update Contact Error: ' . $e->getMessage());
+    sendResponse(false, "Failed to update contact. Please try again later");
 }
 ?>

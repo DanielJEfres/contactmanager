@@ -2,7 +2,13 @@
 require_once 'config.php';
 require_once 'utils.php';
 
+validatePostRequest();
+
 $inData = json_decode(file_get_contents('php://input'), true);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    sendResponse(false, "Invalid JSON format");
+}
 
 $userId = trim($inData['userId'] ?? '');
 $firstName = trim($inData['firstName'] ?? '');
@@ -44,6 +50,7 @@ try {
     sendResponse(true, "Contact added successfully");
     
 } catch (PDOException $e) {
-    sendResponse(false, "Add Contact Error: " . $e->getMessage()); // reminder: remove db error details in final release
+    error_log('Add Contact Error: ' . $e->getMessage());
+    sendResponse(false, "Failed to add contact. Please try again later");
 }
 ?>

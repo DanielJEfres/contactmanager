@@ -2,7 +2,13 @@
 require_once 'config.php';
 require_once 'utils.php';
 
+validatePostRequest();
+
 $inData = json_decode(file_get_contents('php://input'), true);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    sendResponse(false, "Invalid JSON format");
+}
 
 $userId = trim($inData['userId'] ?? '');
 $search = trim($inData['search'] ?? '');
@@ -46,6 +52,7 @@ try {
     sendResponse(true, "Search completed", $results);
 
 } catch (PDOException $e) {
-    sendResponse(false, "Search Contacts Error: " . $e->getMessage()); // remove details in final
+    error_log('Search Contacts Error: ' . $e->getMessage());
+    sendResponse(false, "Failed to search contacts. Please try again later");
 }
 ?>
