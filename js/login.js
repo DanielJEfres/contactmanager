@@ -13,26 +13,32 @@ document.addEventListener("DOMContentLoaded", function () {
       password: password
     };
 
-    fetch("login.php", {
+    // IMPORTANT: make this match your actual folder structure
+    fetch("api/login.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
     .then(function (response) {
-      return response.json(); // this will FAIL if login.php returns a PHP parse error page
+      return response.json();
     })
     .then(function (result) {
       alert(result.message);
 
       if (result.success) {
-        // store whatever login.php returns so contacts.html can use it
-        localStorage.setItem("user", JSON.stringify(result));
+        // utils.php returns payload in result.data
+        // expects: result.data.userId
+        localStorage.setItem("userId", result.data.userId);
+
+        // optional: show name later
+        localStorage.setItem("username", username);
+
         window.location.href = "contacts.html";
       }
     })
     .catch(function (error) {
       console.log(error);
-      alert("Login failed (check console + make sure login.php returns valid JSON).");
+      alert("Login failed (likely because login.php is currently broken / not returning JSON).");
     });
 
   });

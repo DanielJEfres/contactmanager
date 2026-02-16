@@ -1,4 +1,4 @@
-<!DOCKTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -9,31 +9,52 @@
 	<header>
 		<h1>G.E. & C. Contact Management System</h1>
 		<SGU>A Universal Contact Management System</SGU>
-		<h2 id="welcomeContacts">Welcome, [NAME]!</h2>
+		<h2 id="welcomeContacts">Welcome!</h2>
 	</header>
+
 	<br />
-	<form action="DNE.php">
+
+	<form id="addContactForm">
 		<fieldset>
 			<legend>Contact Submission</legend>
-			<label>Name:<br />
-			<input type="text" name="name" /></label><br /><br />
+
+			<label>First Name:<br />
+			<input type="text" id="firstName" /></label><br /><br />
+
+			<label>Last Name:<br />
+			<input type="text" id="lastName" /></label><br /><br />
+
 			<label>EMail Address:<br />
-			<input type="text" name="email" /></label><br /><br />
+			<input type="text" id="email" /></label><br /><br />
+
 			<label>Phone Number:<br />
-			<input type="text" name="mobile" /></label><br /><br />
-			<input type="submit" value="Submit" />
+			<input type="text" id="phone" /></label><br /><br />
+
+			<input type="submit" value="Add Contact" />
 		</fieldset>
+	</form>
+
+	<form id="searchForm">
 		<fieldset>
 			<legend>Contact Search</legend>
-			<input type="search" name="search" />
+			<input type="search" id="search" />
 			<input type="submit" value="Search" />
 		</fieldset>
 	</form>
+
+	<div id="status"></div>
+	<div id="contactList"></div>
+
 	<ul>
 		<li><a href="index.html">Logout</a></li>
 	</ul>
+
 	<footer>
 		Project One "Contact Manager" by Group 8, Spring 2026
 	</footer>
+
+	<script src="js/api.js"></script>
+	<script src="js/auth.js"></script>
+	<script src="js/contacts.js"></script>
 </body>
 </html>
