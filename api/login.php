@@ -35,15 +35,15 @@ try {
     if (password_verify($password, $row['Password'])) {
         
         $responseData = [
+            "userId"   => $row['ID'],
+            "username" => $username
+        ];
+        
         $conn = null;
         sendResponse(true, "Login successful", $responseData);
 
     } else {
         $conn = null;
-
-        sendResponse(true, "Login successful", $responseData);
-
-    } else {
         sendResponse(false, "Login/Password incorrect");
     }
 
