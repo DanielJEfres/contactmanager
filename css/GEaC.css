@@ -1,0 +1,46 @@
+body {
+	font-family: Courier;
+	background-color: #000000;
+	color: #00FF00;
+}
+
+header {
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+a {
+	color: #00FFFF;
+}
+
+p {
+	font-family: Courier;
+	color: #00FF00;
+	border: 2px solid #00FF00;
+	text-align: center;
+}
+
+fieldset {
+	font-family: Courier;
+	color: #00FF00;
+	border: 2px solid #00FF00;
+	text-align: center;
+}
+
+ul {
+	list-style-type: none;
+	text-align: center;
+	font-size: 48px
+}
+
+@font-face {
+	font-family: 'StargateUniverse';
+	src: url('fonts/StargateUniverse.otf');
+}
+
+SGU {
+	font-family: 'StargateUniverse';
+}
