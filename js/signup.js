@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // dont run until page is loaded
 
   var form = document.getElementById("signupForm");
 
-  form.addEventListener("submit", function (e) 
-  {
+  form.addEventListener("submit", function (e) {
     e.preventDefault(); // stop page reload
 
     // grab values
@@ -11,8 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var password = document.getElementById("password").value;
 
     // build JSON object
-    var data = 
-    {
+    var data = {
       username: username,
       password: password
     };
@@ -25,20 +24,24 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       body: JSON.stringify(data)
     })
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(result) {
-      alert(result.message);
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
+        var msg = document.getElementById("message");
+        msg.innerText = result.message;
+        msg.style.color = "green";
 
-      if (result.success) {
-        window.location.href = "login.html";
-      }
-    })
-    .catch(function(error) {
-      console.log(error);
-      alert("Error connecting to server");
-    });
+        if (result.success) {
+          setTimeout(function () {
+            window.location.href = "login.html";
+          }, 1500);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        alert("Error connecting to server");
+      });
 
   });
 
