@@ -71,18 +71,16 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-        // Beginner: prompts for new values
-        var newFirst = prompt("Update First Name:", c.FirstName || "");
-        if (newFirst === null) return;
+        //get new values from the input fields
+        var newFirst = firstNameInput.value.trim();
+        var newLast  = lastNameInput.value.trim();
+        var newEmail = emailInput.value.trim();
+        var newPhone = phoneInput.value.trim();
 
-        var newLast = prompt("Update Last Name:", c.LastName || "");
-        if (newLast === null) return;
-
-        var newEmail = prompt("Update Email:", c.Email || "");
-        if (newEmail === null) return;
-
-        var newPhone = prompt("Update Phone (digits or +digits):", c.Phone || "");
-        if (newPhone === null) return;
+        if (!newFirst || !newLast || !newEmail || !newPhone) {
+          setStatus("Fill the fields above, then click Update.");
+          return;
+        }
 
         newFirst = newFirst.trim();
         newLast = newLast.trim();

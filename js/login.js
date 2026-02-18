@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.setItem("userId", result.data.userId);
           localStorage.setItem("username", username);
 
-          // small delay so user sees success
+          // small delay
           setTimeout(function () {
             window.location.href = "contacts.html";
           }, 1200);
