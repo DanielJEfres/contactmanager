@@ -13,33 +13,43 @@ document.addEventListener("DOMContentLoaded", function () {
       password: password
     };
 
-    // IMPORTANT: make this match your actual folder structure
     fetch("api/login.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (result) {
-      alert(result.message);
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (result) {
 
-      if (result.success) {
-        // utils.php returns payload in result.data
-        // expects: result.data.userId
-        localStorage.setItem("userId", result.data.userId);
+        var msg = document.getElementById("message");
+        msg.innerText = result.message;
 
-        // optional: show name later
-        localStorage.setItem("username", username);
+        if (result.success) {
+          msg.style.color = "green";
 
-        window.location.href = "contacts.html";
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-      alert("Login failed (likely because login.php is currently broken / not returning JSON).");
-    });
+          // save login info
+          localStorage.setItem("userId", result.data.userId);
+          localStorage.setItem("username", username);
+
+          // small delay so user sees success
+          setTimeout(function () {
+            window.location.href = "contacts.html";
+          }, 1200);
+
+        } else {
+          msg.style.color = "red";
+        }
+
+      })
+      .catch(function (error) {
+        console.log(error);
+
+        var msg = document.getElementById("message");
+        msg.innerText = "Unable to connect to server.";
+        msg.style.color = "red";
+      });
 
   });
 
