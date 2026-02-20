@@ -2,6 +2,10 @@
 require_once 'config.php';
 require_once 'utils.php';
 
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Pragma: no-cache');
+header('Expires: 0');
+
 validatePostRequest();
 
 $inData = json_decode(file_get_contents('php://input'), true);
@@ -22,7 +26,7 @@ try {
     $conn = getDB();
 
     if ($search === '') { // if search is empty return ALL contacts for the user
-        $sql = "SELECT ID, FirstName, LastName, Phone, Email
+        $sql = "SELECT ID, FirstName, LastName, Phone, Email, DateCreated
                 FROM Contacts
                 WHERE UserID = ?
                 ORDER BY LastName ASC";
@@ -32,7 +36,7 @@ try {
 
     else { // otherwise do a search based on the input from the user
         $term = "%" . $search . "%";
-        $sql = "SELECT ID, FirstName, LastName, Phone, Email
+        $sql = "SELECT ID, FirstName, LastName, Phone, Email, DateCreated
                 FROM Contacts
                 WHERE UserID = ?
                 AND (

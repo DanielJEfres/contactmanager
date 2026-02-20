@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(bodyObj),
+      cache: "no-store"
     }).then(function (response) {
       return response.json();
     });
@@ -56,7 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
       info.textContent =
         "Name: " + fullName +
         " | Email: " + (c.Email || "") +
-        " | Phone: " + (c.Phone || "");
+        " | Phone: " + (c.Phone || "") +
+        " | Date Created: " + (c.DateCreated || "");
       row.appendChild(info);
 
       // UPDATE button
